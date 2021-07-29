@@ -51,8 +51,6 @@ def live_market_signals(ticker, light, delay=5):
             light.set_rgb(*red)
         elif current_price > price:
             light.set_rgb(*green)
-        else:
-            light.set_rgb(*blue)
         price = current_price
         sleep(delay)
 
