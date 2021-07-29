@@ -1,6 +1,7 @@
 import requests
 
-data = {'ticker': 'ADAUSDT', 'light': '192.168.1.104'}
-url = 'http://127.0.0.1:5000/stonks'
+url = 'http://127.0.0.1:5000/'
 
-requests.post(url, json=data)
+
+def post(endpoint, json):
+    requests.post(f'{url}{endpoint}', json)
