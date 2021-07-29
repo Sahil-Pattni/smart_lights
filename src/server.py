@@ -9,6 +9,7 @@ env = os.environ
 bot = BinanceBot(env.get('BINANCE_KEY'), env.get('BINANCE_SECRET'))
 app = Flask(__name__)
 app.config["DEBUG"] = True
+
 STATUS = False
 
 def get_rgb(light):
@@ -40,7 +41,7 @@ def live_market_signals(ticker, light, delay=5):
     red = (255,0,0)
     green = (0,255,0)
     blue = (0,0,255)
-    sleep(delay)
+    sleep(delay*2)
     count = 1
     while STATUS:
         print(f'Loop {count}')
@@ -52,6 +53,7 @@ def live_market_signals(ticker, light, delay=5):
             light.set_rgb(*green)
         else:
             light.set_rgb(*blue)
+        price = current_price
         sleep(delay)
 
 
