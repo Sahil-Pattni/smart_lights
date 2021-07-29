@@ -36,6 +36,7 @@ def live_market_signals(ticker, light, delay=5):
     print('Starting...')
     light = Bulb(light)
     price = bot.price(ticker)
+    light.set_brightness(20)
     red = (255,0,0)
     green = (0,255,0)
     blue = (0,0,255)
@@ -55,25 +56,22 @@ def live_market_signals(ticker, light, delay=5):
 
 
 
-def pre_check(request):
-    if not request.json:
-        abort(400)
 
-
-def flow_control(flow, args):
+def flow_control(flowani, args):
     global STATUS
     STATUS = not STATUS
     light = Bulb(args['light'])
     if STATUS:
-        flow = Flow(transitions=flow)
-        light.start_flow(flow)
+        flowani = Flow(transitions=flowani)
+        light.start_flow(flowani)
     else:
         light.stop_flow()
 
 
 @app.route('/stonks', methods=['POST'])
 def stonks():
-    pre_check(request)
+    if not request.json:
+        abort(400)
     global STATUS
     STATUS = not STATUS
     args = dict(request.json)
@@ -84,16 +82,21 @@ def stonks():
 
 @app.route('/police', methods=['POST'])
 def police():
-    pre_check(request )
+    if not request.json:
+        abort(400)
     args = dict(request.json)
-    flow_control(transitions.police2, args)
+    print(args)
+    flow_control(transitions.police2(), args)
+    return f'{STATUS}', 201
 
 
 @app.route('/strobe', methods=['POST'])
-def police():
-    pre_check(request )
+def strobe():
+    if not request.json:
+        abort(400)
     args = dict(request.json)
-    flow_control(transitions.strobe, args)    
+    flow_control(transitions.strobe(), args)
+    return '', 201 
 
     
     
