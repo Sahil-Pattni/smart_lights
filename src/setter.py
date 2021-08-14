@@ -59,12 +59,12 @@ def set_scene(scene):
         if 'ct' in keys:
             bulb.set_color_temp(v['ct'])
         if 'bright' in keys:
-            bulb.set_brightness(v['brightness'])
+            bulb.set_brightness(v['bright'])
 
 
 # --- SCENES --- #
 police = {
-    4: {'rgb' (255,0,0)},
+    4: {'rgb': (255,0,0)},
     7: {'rgb': (0,0,255)},
     9: {'rgb': (255,0,0)}
 }
